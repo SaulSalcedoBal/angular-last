@@ -1,0 +1,22 @@
+<!-- ======= Mobile nav toggle button ======= -->
+<button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
+
+<!-- Page Wrapper -->
+<!-- <div id="wrapper"> -->
+<sections-sidebar [menuItems]="sidebarItems"></sections-sidebar>
+<!-- <section id="contenido" class="facts"> -->
+
+<main id="main">
+    <router-outlet></router-outlet>
+    <sections-footer></sections-footer>
+</main>
+
+<!-- </section> -->
+<!-- <pre>
+  {{sidebarItems | json}}
+</pre> -->
+
+<!-- </div> -->
+
+
+<a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>

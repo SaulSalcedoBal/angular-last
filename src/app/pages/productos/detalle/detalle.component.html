@@ -1,0 +1,520 @@
+<style>
+  :host {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 8px 0;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  .toolbar {
+    height: 60px;
+    margin: -8px;
+    display: flex;
+    align-items: center;
+    background-color: #1976d2;
+    color: white;
+    font-weight: 600;
+  }
+
+  .toolbar img {
+    margin: 0 16px;
+  }
+
+  .toolbar #twitter-logo {
+    height: 40px;
+    margin: 0 16px;
+  }
+
+  .toolbar #twitter-logo:hover {
+    opacity: 0.8;
+  }
+
+  .content {
+    display: flex;
+    margin: 32px auto;
+    padding: 0 16px;
+    max-width: 960px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  svg.material-icons {
+    height: 24px;
+    width: auto;
+  }
+
+  svg.material-icons:not(:last-child) {
+    margin-right: 8px;
+  }
+
+  .card svg.material-icons path {
+    fill: #888;
+  }
+
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 16px;
+  }
+
+  .card {
+    border-radius: 4px;
+    border: 1px solid #eee;
+    background-color: #fafafa;
+    height: 40px;
+    width: 200px;
+    margin: 0 8px 16px;
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+    line-height: 24px;
+  }
+
+  .card-container .card:not(:last-child) {
+    margin-right: 0;
+  }
+
+  .card.card-small {
+    height: 16px;
+    width: 168px;
+  }
+
+  .card-container .card:not(.highlight-card) {
+    cursor: pointer;
+  }
+
+  .card-container .card:not(.highlight-card):hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 17px rgba(black, 0.35);
+  }
+
+  .card-container .card:not(.highlight-card):hover .material-icons path {
+    fill: rgb(105, 103, 103);
+  }
+
+  .card.highlight-card {
+    background-color: #1976d2;
+    color: white;
+    font-weight: 600;
+    border: none;
+    width: auto;
+    min-width: 30%;
+    position: relative;
+  }
+
+  .card.card.highlight-card span {
+    margin-left: 60px;
+  }
+
+  svg#rocket {
+    width: 80px;
+    position: absolute;
+    left: -10px;
+    top: -24px;
+  }
+
+  svg#rocket-smoke {
+    height: calc(100vh - 95px);
+    position: absolute;
+    top: 10px;
+    right: 180px;
+    z-index: -10;
+  }
+
+  a,
+  a:visited,
+  a:hover {
+    color: #1976d2;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #125699;
+  }
+
+  .terminal {
+    position: relative;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 6px;
+    padding-top: 45px;
+    margin-top: 8px;
+    overflow: hidden;
+    background-color: rgb(15, 15, 16);
+  }
+
+  .terminal::before {
+    content: "\2022 \2022 \2022";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: rgb(58, 58, 58);
+    color: #c2c3c4;
+    width: 100%;
+    font-size: 2rem;
+    line-height: 0;
+    padding: 14px 0;
+    text-indent: 4px;
+  }
+
+  .terminal pre {
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    color: white;
+    padding: 0 1rem 1rem;
+    margin: 0;
+  }
+
+  .circle-link {
+    height: 40px;
+    width: 40px;
+    border-radius: 40px;
+    margin: 8px;
+    background-color: white;
+    border: 1px solid #eeeeee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: 1s ease-out;
+  }
+
+  .circle-link:hover {
+    transform: translateY(-0.25rem);
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  footer {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    line-height: 20px;
+  }
+
+  footer a {
+    display: flex;
+    align-items: center;
+  }
+
+  .github-star-badge {
+    color: #24292e;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    padding: 3px 10px;
+    border: 1px solid rgba(27,31,35,.2);
+    border-radius: 3px;
+    background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
+    margin-left: 4px;
+    font-weight: 600;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+  }
+
+  .github-star-badge:hover {
+    background-image: linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);
+    border-color: rgba(27,31,35,.35);
+    background-position: -.5em;
+  }
+
+  .github-star-badge .material-icons {
+    height: 16px;
+    width: 16px;
+    margin-right: 4px;
+  }
+
+  svg#clouds {
+    position: fixed;
+    bottom: -160px;
+    left: -230px;
+    z-index: -10;
+    width: 1920px;
+  }
+
+
+  /* Responsive Styles */
+  @media screen and (max-width: 767px) {
+
+    .card-container > *:not(.circle-link) ,
+    .terminal {
+      width: 100%;
+    }
+
+    .card:not(.highlight-card) {
+      height: 16px;
+      margin: 8px 0;
+    }
+
+    .card.highlight-card span {
+      margin-left: 72px;
+    }
+
+    svg#rocket-smoke {
+      right: 120px;
+      transform: rotate(-5deg);
+    }
+  }
+
+  @media screen and (max-width: 575px) {
+    svg#rocket-smoke {
+      display: none;
+      visibility: hidden;
+    }
+  }
+</style>
+
+<!-- ======= Breadcrumbs ======= -->
+<section class="breadcrumbs">
+  <div class="container">
+
+    <div class="d-flex justify-content-between align-items-center">
+      <h2>Productos</h2>
+      <ol>
+        <li><a href="index.html">Home</a></li>
+        <li>Productos</li>
+        <li>Detalle</li>
+      </ol>
+    </div>
+
+  </div>
+</section>
+<!-- End Breadcrumbs -->
+
+<!-- ======= About Section ======= -->
+<section id="contact" class="contact">
+  <div class="container">
+
+    <div class="section-title">
+      <h2>Detalle Producto</h2>
+      <!-- <p></p> -->
+    </div>
+    <!-- {{producto | json}} -->
+    <div class="row">
+      <div class="col-lg-12 mt-5 mt-lg-0 d-flex align-items-stretch">
+        <!-- <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label for="name">Titulo</label>
+                  <input type="text" name="name" class="form-control" id="name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" autocomplete="off" value="CyberPunk 2077" />
+                  <div class="validate"></div>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="name">Plataforma</label>
+                  <select class="form-control" id="exampleFormControlSelect1">
+                    <option>Xbox Series X|S</option>
+                  </select>
+                  <div class="validate"></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="name">Genero</label>
+                    <select class="form-control" id="exampleFormControlSelect1">
+                      <option>Mundo Abierto|Accion</option>
+                    </select>
+                    <div class="validate"></div>
+                  </div>
+                <div class="form-group col-md-6">
+                  <label for="name">Clasificación</label>
+                  <select class="form-control" id="exampleFormControlSelect1">
+                    <option>+18</option>
+                  </select>
+                  <div class="validate"></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-2">
+                    <label for="name">Fecha Lanzamiento</label>
+                    <input value="2020-12-10" type="text" name="name" class="form-control" id="name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" autocomplete="off" placeholder="2020-12-01" />
+                    <div class="validate"></div>
+                </div>
+                <div class="col-md-4"></div>
+                <div class="form-group col-md-6">
+                    <label for="name">Estatus</label>
+                    <select class="form-control" id="exampleFormControlSelect1">
+                      <option>Activo</option>
+                    </select>
+                    <div class="validate"></div>
+                  </div>
+
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="exampleFormControlFile1">Imagen </label><br>
+                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                    <div class="validate"></div>
+                  </div>
+                  <div class="form-group col-md-2">
+                    <label for="name">Fecha Creación</label>
+                    <input disabled value="2020-01-01" type="text" name="name" class="form-control" id="name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" autocomplete="off" placeholder="2020-12-01" />
+                    <div class="validate"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="name">Descripción</label>
+                <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" autocomplete="off">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vestibulum sem in faucibus hendrerit. Aenean sit amet blandit mi, vitae commodo dui. Nulla placerat quam vel sem auctor vestibulum. Pellentesque rutrum orci in ex scelerisque dignissim. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+                </textarea>
+                <div class="validate"></div>
+              </div>
+              <div class="mb-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
+              </div>
+              <div class="text-center"><button type="submit">Guardar</button></div>
+            </form> -->
+        <form class="form-signin" #formProducto="ngForm" (ngSubmit)="updateProducto(formProducto)">
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="name">Titulo</label>
+              <input type="text" class="form-control" name="titulo" id="titulo" ngModel="{{producto.producto.titulo}}"
+                autocomplete="off" />
+              <div class="validate"></div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="name">SKU</label>
+              <input type="text" class="form-control" name="sku" id="sku" ngModel="{{producto.producto.sku}}"
+                autocomplete="off" />
+              <div class="validate"></div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="name">Costo</label>
+              <input type="number" class="form-control" name="costo" id="costo" ngModel="{{producto.producto.costo}}"
+                autocomplete="off" />
+              <div class="validate"></div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="name">Precio</label>
+              <input type="number" class="form-control" name="precioVenta" id="precioVenta"
+                ngModel="{{producto.producto.precioVenta}}" autocomplete="off" />
+              <div class="validate"></div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="name">Edición</label>
+              <input type="text" class="form-control" name="edicion" id="edicion"
+                ngModel="{{producto.producto.edicion}}" autocomplete="off" />
+              <div class="validate"></div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="name">Plataforma</label>
+              <ng-select [items]="plataformaBindingsList" name="plataforma" [(ngModel)]="plataformaSelected">
+              </ng-select>
+              <div class="validate"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="name">Genero</label>
+              <ng-select [items]="generoBindingsList" name="genero" [(ngModel)]="generoSelected">
+              </ng-select>
+              <div class="validate"></div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="name">Clasificación</label>
+              <ng-select [items]="clasificacionBindingsList" name="clasificacion" [(ngModel)]="clasificacionSelected">
+              </ng-select>
+              <div class="validate"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-3">
+              <label for="name">Fecha Lanzamiento</label>
+              <!-- [(ngModel)]="fechaLanzamiento" -->
+              <input class="form-control" type="date" name="fechaLanzamiento" id="fechaLanzamiento"
+                [ngModel]="fechaLanzamiento | date:'yyyy-MM-dd'" autocomplete="off">
+              <div class="validate"></div>
+            </div>
+            <div class="form-group col-md-9">
+              <label for="name">URL Video</label>
+              <input type="text" class="form-control" name="urlVideo" id="urlVideo"
+                ngModel="{{producto.producto.urlVideo}}" autocomplete="off" />
+              <div class="validate"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="name">Descripción</label>
+            <textarea class="form-control" name="descripcion" id="descripcion"
+              ngModel="{{producto.producto.descripcion}}" rows="5" data-rule="required" data-msg=""
+              autocomplete="off"></textarea>
+            <div class="validate"></div>
+          </div>
+          <div>
+            <button type="submit" class="btn btn-primary w3-green float-right">Guardar</button>
+            <a routerLink="/productos/lista"><button class="btn btn-info">Regresar Lista</button></a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <h1 *ngIf="isLoadingFile">
+      Espere un momento {{loadingTitle}} ......
+    </h1>
+    <!-- /loading -->
+
+    <!-- Drop Zone File Upload -->
+    <ngx-dropzone class="mt-2" (change)="onSelect($event)" *ngIf="!isLoadingFile">
+      <ngx-dropzone-label>
+        <i class="icon-file-plus icon-3x"></i> <br>
+        <small>Documento</small>
+      </ngx-dropzone-label>
+      <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+      </ngx-dropzone-preview>
+      <!--
+      <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f">
+          <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+      </ngx-dropzone-image-preview>
+      -->
+    </ngx-dropzone>
+    <!-- /drop zone file upload -->
+
+    <div class="text-justify mt-1">
+      <div class="alert alert-info mt-2" *ngIf="!validateMinFiles()">
+        <strong><i class="icon-file-text2"></i> NOTA:</strong><br>
+        <span [innerHTML]="validateMessage[0] | html"></span>
+      </div>
+      <div class="alert alert-danger" *ngIf="!validateExtensionsFiles()">
+        <strong><i class="icon-cancel-circle2"></i> ERROR:</strong><br>
+        <span [innerHTML]="validateMessage[1] | html"></span>
+      </div>
+    </div>
+
+    <div class="text-right mt-1">
+      <button type="button" class="btn btn-xs btn-labeled btn-labeled-left btn-lg btn-primary mb-2"
+          (click)="uploadFiles(producto.producto.id)"
+          [disabled]="!validateMinFiles() || !validateExtensionsFiles()">
+          <b><i class="icon-file-upload mr-1"></i></b> Cargar Archivo
+      </button>
+  </div>
+
+  <!-- <pre>
+    {{filesData | json}}
+  </pre> -->
+
+  </div>
+</section><!-- End About Section -->
